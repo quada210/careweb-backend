@@ -170,6 +170,57 @@ app.delete('/remove/:id',async(req,res)=>{
     }
 });
 
+//api for  food login admin
+app.post("/fooduserlogin", (req, res) => {
+    const { userid, password } = req.body;
+    offical.findOne({ userid: userid })
+      .then(user => {
+        if (user) {
+          if (user.password === password) {
+            if (user.category === "food") {
+              res.json("successful");
+            } else {
+              res.json("Unauthorized: Not a food user");
+            }
+          } else {
+            res.json("password is incorrect");
+          }
+        } else {
+          res.json("no data existed/ incorrect ID");
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        res.json("Server error. Please try again later.");
+      });
+  });
+
+  //api for  medicine login admin
+app.post("/mediuserlogin", (req, res) => {
+    const { userid, password } = req.body;
+    offical.findOne({ userid: userid })
+      .then(user => {
+        if (user) {
+          if (user.password === password) {
+            if (user.category === "medicine") {
+              res.json("successful");
+            } else {
+              res.json("Unauthorized: Not a food user");
+            }
+          } else {
+            res.json("password is incorrect");
+          }
+        } else {
+          res.json("no data existed/ incorrect ID");
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        res.json("Server error. Please try again later.");
+      });
+  });
+  
+
 
 
 
